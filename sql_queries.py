@@ -21,7 +21,7 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES
 
-staging_events_table_create= ("""
+staging_events_table_create= """
 CREATE TABLE IF NOT EXISTS staging_events(
         artist TEXT,
         auth TEXT,
@@ -41,9 +41,10 @@ CREATE TABLE IF NOT EXISTS staging_events(
         ts BIGINT, 
         userAgent TEXT, 
         userId INT
-""")
+)
+"""
 
-staging_songs_table_create = ("""
+staging_songs_table_create = """
 CREATE TABLE IF NOT EXISTS staging_songs(
         song_id TEXT PRIMARY KEY,
         artist_id TEXT,
@@ -55,9 +56,10 @@ CREATE TABLE IF NOT EXISTS staging_songs(
         num_songs INT,
         title TEXT,
         year INT
-""")
+    )
+"""
 
-songplay_table_create = ("""
+songplay_table_create = """
 CREATE TABLE IF NOT EXISTS songplays(
         songplay_id         integer identity(0,1) primary key,
         start_time          timestamp not null sortkey distkey,
@@ -68,25 +70,28 @@ CREATE TABLE IF NOT EXISTS songplays(
         session_id          integer,
         location            varchar,
         user_agent          varchar
-""")
+    )
+"""
 
-user_table_create = ("""
+user_table_create = """
 CREATE TABLE IF NOT EXISTS users(
         user_id VARCHAR PRIMARY KEY NOT NULL,
         first_name VARCHAR,
         last_name VARCHAR,
         gender VARCHAR,
         level VARCHAR
-""")
+    )
+"""
 
-song_table_create = ("""
+song_table_create = """
 CREATE TABLE IF NOT EXISTS songs(
         song_id VARCHAR PRIMARY KEY NOT NULL,
         title VARCHAR NOT NULL,
         artist_id VARCHAR NOT NULL,
         year INT,
         duration FLOAT
-""")
+    )
+"""
 
 artist_table_create = ("""
 CREATE TABLE IF NOT EXISTS artists(
@@ -95,6 +100,7 @@ CREATE TABLE IF NOT EXISTS artists(
         location VARCHAR,
         latitude VARCHAR,
         longitude VARCHAR
+    )
 """)
 
 time_table_create = ("""
@@ -115,16 +121,16 @@ CREATE TABLE IF NOT EXISTS time
 staging_events_copy = ("""
 copy staging_events from {bucket}
     credentials 'aws_iam_role={role}'
-    region 'us-west-2'
-    format as JSON {path}
-    timeformat as 'epochmillisecs'
+    region      'us-west-2'
+    format       as JSON {path}
+    timeformat   as 'epochmillisecs'
 """).format(bucket=LOG_DATA, role=IAM_ROLE, path=LOG_PATH)
 
 staging_songs_copy = ("""
 copy staging_songs from {bucket}
     credentials 'aws_iam_role={role}'
-    region 'us-west-2'
-    format as JSON 'auto'
+    region      'us-west-2'
+    format       as JSON 'auto'
 """).format(bucket=SONG_DATA, role=IAM_ROLE)
 
 # FINAL TABLES
