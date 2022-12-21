@@ -38,3 +38,6 @@ Using the song and event datasets, you'll need to create a star schema optimized
 2. Implement the logic in etl.py to load data from staging tables to analytics tables on Redshift.
 3. Test by running etl.py after running create_tables.py and running the analytic queries on your Redshift database to compare your results with the expected results.
 4. Delete your redshift cluster when finished.
+
+# Sample Results
+<img src="images/01-artits.png">
